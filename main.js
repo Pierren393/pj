@@ -1,48 +1,78 @@
-// nomDeMonFichier.js
-const operand = 12;
-const operand2 = 45;
+// Jeu de devinette de nombre entre 1 et 100
+let randomNumber;
+let attempts;
 
-b += a ;
-console.log("resultat de a + b = " + b);
-// on peut également déclarer et initialiser un objet de la façon suivante :
-
-// let aPerson= new Object();
-// aPerson.name = 'Jean';
-// aPerson.age = 35;
-// aPerson.gender = 'masculin';
-// aPerson.interest = ['musique', 'badminton'];
-let aPerson = { 
-	name: 'Jean',
-	age: 35,
-	gender: 'masculin',
-	interest: ['musique', 'Jeux videos'],
-};
-
-aPerson.sayHello = function() {console.log('Bonjour ! Je suis ' + this.name + '.'); };
-
-aPerson.sayHello();
-console.log("resultat de" + operand + "+" + operand2 + "=" + result);
-let day;
-switch (new Date().getDay()) {
-  case 0:
-    day = "Dimanche";
-    break;
-  case 1:
-    day = "Lundi";
-    break;
-  case 2:
-     day = "Mardi";
-    break;
-  case 3:
-    day = "Mercredi";
-    break;
-  case 4:
-    day = "Jeudi";
-    break;
-  case 5:
-    day = "Vendredi";
-    break;
-  case 6:
-    day = "Samedi";
+// Initialise le jeu
+function initGame() {
+    randomNumber = Math.floor(Math.random() * 100) + 1;
+    attempts = 0;
 }
-console.log("Aujourd'hui nous sommes " + day);
+
+// Vérifie la tentative de l'utilisateur
+function checkGuess() {
+    const guessInput = document.getElementById('guessInput');
+    const messageDiv = document.getElementById('message');
+    const attemptsDiv = document.getElementById('attempts');
+    
+    if (!guessInput || !messageDiv || !attemptsDiv) return;
+    
+    const userGuess = parseInt(guessInput.value);
+    
+    // Validation de l'entrée
+    if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+        messageDiv.textContent = "Veuillez entrer un nombre entre 1 et 100";
+        messageDiv.className = "hint";
+        return;
+    }
+    
+    attempts++;
+    
+    if (userGuess === randomNumber) {
+        messageDiv.textContent = "🎉 Bravo ! Vous avez trouvé le nombre " + randomNumber + " !";
+        messageDiv.className = "success";
+        attemptsDiv.textContent = "Vous avez gagné en " + attempts + " tentative(s) !";
+        guessInput.disabled = true;
+    } else if (userGuess < randomNumber) {
+        messageDiv.textContent = "C'est plus ! 📈";
+        messageDiv.className = "hint";
+        attemptsDiv.textContent = "Tentative(s) : " + attempts;
+    } else {
+        messageDiv.textContent = "C'est moins ! 📉";
+        messageDiv.className = "hint";
+        attemptsDiv.textContent = "Tentative(s) : " + attempts;
+    }
+    
+    // Efface l'input pour la prochaine tentative
+    guessInput.value = "";
+    guessInput.focus();
+}
+
+// Réinitialise le jeu
+function resetGame() {
+    initGame();
+    const guessInput = document.getElementById('guessInput');
+    const messageDiv = document.getElementById('message');
+    const attemptsDiv = document.getElementById('attempts');
+    
+    if (!guessInput || !messageDiv || !attemptsDiv) return;
+    
+    guessInput.disabled = false;
+    guessInput.value = "";
+    messageDiv.textContent = "";
+    attemptsDiv.textContent = "";
+    guessInput.focus();
+}
+
+// Permet de soumettre avec la touche Entrée
+document.addEventListener('DOMContentLoaded', function() {
+    const guessInput = document.getElementById('guessInput');
+    if (guessInput) {
+        guessInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                checkGuess();
+            }
+        });
+    }
+    // Démarre le jeu au chargement de la page
+    initGame();
+});
