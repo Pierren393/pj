@@ -1,2 +1,82 @@
-<!-- index.html -->
-<script src="main.js"></script>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu de Devinette</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .game-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .input-group {
+            margin: 20px 0;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 100px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #message {
+            text-align: center;
+            font-size: 18px;
+            margin: 20px 0;
+            min-height: 30px;
+            font-weight: bold;
+        }
+        #attempts {
+            text-align: center;
+            color: #666;
+        }
+        .success {
+            color: #4CAF50;
+        }
+        .hint {
+            color: #ff9800;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>🎯 Jeu de Devinette</h1>
+        <p style="text-align: center;">Devinez un nombre entre 1 et 100</p>
+        <div class="input-group">
+            <input type="number" id="guessInput" min="1" max="100" placeholder="Votre nombre">
+            <button onclick="checkGuess()">Deviner</button>
+            <button onclick="resetGame()" style="background-color: #f44336;">Nouveau Jeu</button>
+        </div>
+        <div id="message"></div>
+        <div id="attempts"></div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
