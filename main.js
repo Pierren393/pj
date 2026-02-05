@@ -6,7 +6,6 @@ let attempts;
 function initGame() {
     randomNumber = Math.floor(Math.random() * 100) + 1;
     attempts = 0;
-    console.log("Nouveau jeu commencé! (Nombre secret: " + randomNumber + ")");
 }
 
 // Vérifie la tentative de l'utilisateur
@@ -14,6 +13,8 @@ function checkGuess() {
     const guessInput = document.getElementById('guessInput');
     const messageDiv = document.getElementById('message');
     const attemptsDiv = document.getElementById('attempts');
+    
+    if (!guessInput || !messageDiv || !attemptsDiv) return;
     
     const userGuess = parseInt(guessInput.value);
     
@@ -49,11 +50,17 @@ function checkGuess() {
 // Réinitialise le jeu
 function resetGame() {
     initGame();
-    document.getElementById('guessInput').disabled = false;
-    document.getElementById('guessInput').value = "";
-    document.getElementById('message').textContent = "";
-    document.getElementById('attempts').textContent = "";
-    document.getElementById('guessInput').focus();
+    const guessInput = document.getElementById('guessInput');
+    const messageDiv = document.getElementById('message');
+    const attemptsDiv = document.getElementById('attempts');
+    
+    if (!guessInput || !messageDiv || !attemptsDiv) return;
+    
+    guessInput.disabled = false;
+    guessInput.value = "";
+    messageDiv.textContent = "";
+    attemptsDiv.textContent = "";
+    guessInput.focus();
 }
 
 // Permet de soumettre avec la touche Entrée
